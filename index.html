@@ -401,6 +401,13 @@
       text-align: center;
     }
 
+
+    /* La portada debe estar visible desde que carga el link */
+    .cover-content.reveal {
+      opacity: 1;
+      transform: none;
+    }
+
     /* NOMBRES */
     .hero-names {
       min-height: 100svh;
@@ -1335,19 +1342,7 @@
   <script>
     const WEDDING_DATE = "2026-07-04T16:30:00-06:00";
 
-    // =====================================================
-    // CONFIGURACIÓN APPS SCRIPT + GOOGLE SHEETS
-    // Tu Apps Script debe responder JSON con:
-    // {
-    //   ok: true,
-    //   guest: {
-    //     slug, invitado, espacios, tipo, telefono, activo
-    //   }
-    // }
-    //
-    // La hoja debe tener estas columnas:
-    // slug | invitado | espacios | tipo | telefono | activo
-    // =====================================================
+    // URL de Apps Script conectada a Google Sheets
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx6oTnNAM0k5Xf6Oy4WXrzH4-r3mpYzF-cbTY5BAtTytac-i-mjN1hbsOH5S26YD6n_/exec";
 
     const WHATSAPP_NOVIA_DEFAULT = "50499999999";
@@ -1363,7 +1358,12 @@
 
     function getSlugFromUrl() {
       const path = window.location.pathname.replace(/^\/+|\/+$/g, "");
-      return path || "invitado";
+
+      // Si abres el archivo local o en /index.html, usa invitado por defecto.
+      if (!path || path === "index.html") return "invitado";
+
+      // Si Vercel usa rutas tipo /familia-lobo-euceda, devuelve ese slug.
+      return decodeURIComponent(path.split("/")[0]);
     }
 
     function normalizeText(value) {
@@ -1407,17 +1407,30 @@
     async function loadGuestFromAppsScript() {
       const slug = getSlugFromUrl();
 
+      // Muestra algo inmediatamente mientras carga la información real.
+      renderGuest({
+        ...DEFAULT_GUEST,
+        invitado: "Cargando invitación...",
+        espacios: DEFAULT_GUEST.espacios
+      });
+
       if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PEGA_AQUI")) {
         renderGuest(DEFAULT_GUEST);
         return;
       }
 
       try {
-        const url = `${APPS_SCRIPT_URL}?slug=${encodeURIComponent(slug)}`;
+        const url = `${APPS_SCRIPT_URL}?slug=${encodeURIComponent(slug)}&t=${Date.now()}`;
         const response = await fetch(url, { cache: "no-store" });
+
+        if (!response.ok) {
+          throw new Error(`Apps Script respondió con estado ${response.status}`);
+        }
+
         const data = await response.json();
 
         if (!data.ok || !data.guest) {
+          console.warn("Invitado no encontrado para slug:", slug, data);
           renderGuest(DEFAULT_GUEST);
           return;
         }
@@ -1429,13 +1442,15 @@
       }
     }
 
-    loadGuestFromAppsScript();
+    function setupEnvelopeAnimation() {
+      const envelopeButton = document.getElementById("openEnvelope");
+      if (!envelopeButton) return;
 
-    const envelopeButton = document.getElementById("openEnvelope");
-    if (envelopeButton) {
       envelopeButton.addEventListener("click", () => {
         if (envelopeButton.classList.contains("open")) return;
+
         envelopeButton.classList.add("open");
+
         setTimeout(() => {
           document.getElementById("nombres")?.scrollIntoView({ behavior: "smooth" });
         }, 1150);
@@ -1463,22 +1478,32 @@
       setText("seconds", seconds);
     }
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+    function setupRevealAnimations() {
+      const revealItems = document.querySelectorAll(".reveal");
 
-    const revealItems = document.querySelectorAll(".reveal");
+      // La portada debe estar visible desde el primer render.
+      document.querySelector(".cover-content")?.classList.add("show");
 
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("show");
-        });
-      }, { threshold: 0.15 });
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("show");
+          });
+        }, { threshold: 0.15 });
 
-      revealItems.forEach((item) => observer.observe(item));
-    } else {
-      revealItems.forEach((item) => item.classList.add("show"));
+        revealItems.forEach((item) => observer.observe(item));
+      } else {
+        revealItems.forEach((item) => item.classList.add("show"));
+      }
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadGuestFromAppsScript();
+      setupEnvelopeAnimation();
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+      setupRevealAnimations();
+    });
   </script>
 </body>
 </html>
