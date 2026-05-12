@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cesar & Nohelia | Invitación de Boda</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --olive: #7c8564;
+      --olive-dark: #6c7456;
+      --paper: #fffdf8;
+      --ink: #2d2d2d;
+      --soft: #5a5a5a;
+      --white: #ffffff;
+      --line: rgba(124, 133, 100, .48);
+      --line-white: rgba(255, 255, 255, .48);
+      --shadow: 0 18px 45px rgba(37, 43, 29, .18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #d9dccd;
+      color: var(--ink);
+      font-family: "Cormorant Garamond", serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .invitation {
+      width: min(100%, 430px);
+      margin: 0 auto;
+      min-height: 100svh;
+      background: var(--paper);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    section {
+      position: relative;
+      width: 100%;
+      text-align: center;
+    }
+
+    .cream {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .olive {
+      background: var(--olive);
+      color: var(--white);
+    }
+
+    .section-pad {
+      padding: 58px 30px;
+    }
+
+    .section-pad.compact {
+      padding-top: 44px;
+      padding-bottom: 44px;
+    }
+
+    .content {
+      width: 100%;
+      max-width: 350px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .script {
+      font-family: "Great Vibes", cursive;
+      font-weight: 400;
+    }
+
+    .spaced-title {
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .spaced-title.small {
+      font-size: 10px;
+      letter-spacing: 3px;
+    }
+
+    .copy {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.32;
+      text-align: center;
+    }
+
+    /* marco.png debe estar en la misma carpeta del HTML */
+    .frame-top,
+    .frame-bottom {
+      width: 100%;
+      height: clamp(80px, 25vw, 118px);
+      background-image: url("marco.png");
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      background-position: center top;
+      display: block;
+      pointer-events: none;
+      margin: 0;
+      flex: 0 0 auto;
+    }
+
+    .frame-bottom {
+      transform: rotate(180deg);
+    }
+
+    .framed-white {
+      background: var(--paper);
+      color: var(--ink);
+      padding: 0;
+    }
+
+    .framed-white .frame-content {
+      padding: 32px 30px 36px;
+    }
+
+    /* PORTADA */
+    .cover {
+      min-height: 100svh;
+      padding-top: clamp(84px, 25vw, 118px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--paper);
+    }
+
+    .cover .frame-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .cover-content {
+      width: 100%;
+      padding: 24px 32px 38px;
+      text-align: center;
+    }
+
+    .cover-title {
+      margin-bottom: 15px;
+    }
+
+    .cover-names {
+      font-size: clamp(38px, 12.5vw, 48px);
+      line-height: 1.05;
+      color: #262626;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .cover-names .amp-inline {
+      font-family: "Cormorant Garamond", serif;
+      font-size: .52em;
+      font-style: italic;
+      margin: 0 12px;
+      vertical-align: middle;
+    }
+
+    .cover-date {
+      margin: 14px 0 18px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    .envelope-button {
+      width: 236px;
+      height: 178px;
+      margin: 0 auto 8px;
+      border: 0;
+      background: transparent;
+      display: block;
+      position: relative;
+      cursor: pointer;
+      perspective: 1100px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .envelope {
+      width: 216px;
+      height: 130px;
+      position: absolute;
+      left: 50%;
+      bottom: 8px;
+      transform: translateX(-50%);
+      filter: drop-shadow(0 12px 16px rgba(0,0,0,.18));
+      overflow: visible;
+    }
+
+    .envelope-back {
+      position: absolute;
+      inset: 0;
+      background: #727a5e;
+      z-index: 1;
+    }
+
+    .envelope-letter {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 23px;
+      height: 100px;
+      background: var(--paper);
+      border: 1px solid rgba(124, 133, 100, .38);
+      transform: translateY(62px) scale(.92) rotate(-1.5deg);
+      transform-origin: bottom center;
+      transition: transform .85s cubic-bezier(.22, 1, .36, 1), opacity .5s ease, box-shadow .55s ease;
+      z-index: 2;
+      opacity: 0;
+      visibility: hidden;
+      box-shadow: none;
+    }
+
+    .envelope-letter::before {
+      content: "C & N";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--olive-dark);
+    }
+
+    .envelope-front {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #727a5e;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .envelope-front::before,
+    .envelope-front::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+    }
+
+    .envelope-front::before {
+      background:
+        linear-gradient(29deg, transparent 49.5%, rgba(48, 54, 39, .30) 50%, transparent 50.6%),
+        linear-gradient(-29deg, transparent 49.5%, rgba(255,255,255,.13) 50%, transparent 50.6%);
+    }
+
+    .envelope-front::after {
+      clip-path: polygon(0 100%, 50% 42%, 100% 100%);
+      background: #687258;
+      opacity: .5;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 84px;
+      clip-path: polygon(0 0, 100% 0, 50% 78%);
+      background: #899071;
+      border-bottom: 1px solid rgba(0,0,0,.12);
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      transition: transform .85s cubic-bezier(.2, .9, .2, 1), filter .85s ease;
+      z-index: 6;
+      backface-visibility: hidden;
+    }
+
+    .seal {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 45% 37%, #f7d485 0 26%, #d7a24e 27% 62%, #b77730 63% 100%);
+      border: 4px solid rgba(255, 222, 151, .75);
+      position: absolute;
+      top: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 7;
+      transition: transform .52s ease, opacity .52s ease;
+    }
+
+    .envelope-button.open .envelope {
+      animation: envelopeSoftBounce 1s cubic-bezier(.2, .9, .2, 1) forwards;
+    }
+
+    .envelope-button.open .envelope-flap {
+      transform: rotateX(178deg);
+      filter: brightness(.92);
+      z-index: 3;
+    }
+
+    .envelope-button.open .envelope-letter {
+      animation: letterPullOut 1.15s cubic-bezier(.22, 1, .36, 1) forwards;
+      z-index: 8;
+      opacity: 1;
+      visibility: visible;
+      box-shadow: 0 14px 22px rgba(45, 45, 45, .14);
+    }
+
+    .envelope-button.open .seal {
+      transform: translateX(-50%) scale(.65);
+      opacity: 0;
+    }
+
+    @keyframes envelopeSoftBounce {
+      0% { transform: translateX(-50%) translateY(0); }
+      35% { transform: translateX(-50%) translateY(4px); }
+      65% { transform: translateX(-50%) translateY(-3px); }
+      100% { transform: translateX(-50%) translateY(0); }
+    }
+
+    @keyframes letterPullOut {
+      0% {
+        transform: translateY(62px) scale(.92) rotate(-1.5deg);
+        opacity: 0;
+      }
+      18% {
+        opacity: 1;
+      }
+      42% {
+        transform: translateY(-74px) scale(.98) rotate(-1deg);
+        opacity: 1;
+      }
+      70% {
+        transform: translateY(-68px) translateX(22px) scale(1.01) rotate(4deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-54px) translateX(34px) scale(1.03) rotate(6deg);
+        opacity: 1;
+      }
+    }
+
+    .click-copy,
+    .reserved .label {
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: #454545;
+    }
+
+    .click-copy {
+      margin-bottom: 14px;
+    }
+
+    .reserved .number {
+      width: 32px;
+      height: 32px;
+      margin: 8px auto;
+      border: 1px solid #616161;
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      font-family: "Montserrat", sans-serif;
+      font-size: 25px;
+      font-weight: 700;
+      color: #303030;
+    }
+
+    .guest-name {
+      margin: 0 auto 11px;
+      max-width: 280px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--olive-dark);
+      text-align: center;
+    }
+
+    /* NOMBRES */
+    .hero-names {
+      min-height: 100svh;
+      background:
+        linear-gradient(rgba(44, 50, 36, .18), rgba(44, 50, 36, .18)),
+        linear-gradient(155deg, #8e9678 0%, #7b8567 48%, #687258 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 42px 30px;
+      color: white;
+      overflow: hidden;
+    }
+
+    .hero-names::before,
+    .hero-names::after {
+      content: "";
+      position: absolute;
+      width: 145%;
+      height: 180px;
+      left: -22%;
+      top: 39%;
+      background: rgba(35, 42, 30, .10);
+      transform: rotate(7deg);
+      border-top: 1px solid rgba(255,255,255,.10);
+    }
+
+    .hero-names::after {
+      transform: rotate(-7deg);
+      background: rgba(255,255,255,.06);
+      top: 42%;
+      border-bottom: 1px solid rgba(34, 40, 29, .12);
+    }
+
+    .hero-names-content {
+      position: relative;
+      z-index: 2;
+      margin-top: -10px;
+      text-align: center;
+    }
+
+    .big-names {
+      color: white;
+      font-size: clamp(64px, 20vw, 82px);
+      line-height: .96;
+      text-align: center;
+      text-shadow: 0 3px 12px rgba(0,0,0,.14);
+    }
+
+    .big-names .amp {
+      display: block;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 27px;
+      font-style: italic;
+      line-height: 1.2;
+      margin: 6px 0 0;
+    }
+
+    .hero-date {
+      margin-top: 50px;
+      font-family: "Montserrat", sans-serif;
+      letter-spacing: 3px;
+      font-size: 11px;
+      color: rgba(255,255,255,.86);
+    }
+
+    /* MONOGRAMA */
+    .monogram-letters {
+      font-size: clamp(58px, 18vw, 72px);
+      line-height: 1;
+      letter-spacing: 7px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .monogram-letters .divider {
+      display: inline-block;
+      width: 1px;
+      height: 58px;
+      background: #1f1f1f;
+      margin: 0 11px -10px 6px;
+    }
+
+    /* HISTORIA */
+    .story-copy {
+      max-width: 316px;
+      margin: 0 auto;
+    }
+
+    .date-row {
+      width: 100%;
+      max-width: 322px;
+      margin: 36px auto 0;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      column-gap: 12px;
+    }
+
+    .date-row .side {
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-size: 10px;
+      line-height: 1;
+      padding: 8px 0;
+      border-top: 1px solid var(--line-white);
+      border-bottom: 1px solid var(--line-white);
+      text-align: center;
+    }
+
+    .date-row .month {
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      margin-bottom: 1px;
+      text-align: center;
+    }
+
+    .date-row .day {
+      font-size: 76px;
+      line-height: .78;
+      color: white;
+      text-align: center;
+    }
+
+    .countdown-title {
+      margin-top: 42px;
+      text-align: center;
+    }
+
+    .countdown {
+      width: 100%;
+      max-width: 336px;
+      margin: 17px auto 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+    }
+
+    .countdown div {
+      text-align: center;
+    }
+
+    .countdown strong {
+      display: block;
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .countdown span {
+      display: block;
+      margin-top: 4px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 10px;
+      letter-spacing: .4px;
+      text-align: center;
+    }
+
+    /* Fotos */
+    .photo-placeholder {
+      width: 100%;
+      min-height: 430px;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(rgba(255,255,255,.10), rgba(255,255,255,.10)),
+        linear-gradient(135deg, #a6ad91, #777f61);
+      color: rgba(255,255,255,.9);
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      line-height: 1.6;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .final-photo {
+      width: 78%;
+      min-height: 230px;
+      margin: 0 auto 42px;
+    }
+
+    /* Ubicaciones */
+    .location-list {
+      display: grid;
+      gap: 36px;
+    }
+
+    .location-item {
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .icon-svg {
+      width: 48px;
+      height: 48px;
+      display: block;
+      margin: 0 auto 8px;
+      stroke: var(--olive);
+      fill: none;
+      stroke-width: 2.15;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .location-time {
+      font-family: "Montserrat", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .location-name {
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1.7px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .location-place {
+      font-family: "Cormorant Garamond", serif;
+      text-transform: uppercase;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-top: 2px;
+      text-align: center;
+    }
+
+    .location-city {
+      font-size: 18px;
+      font-style: italic;
+      font-weight: 700;
+      color: #525252;
+      margin-top: 1px;
+      text-align: center;
+    }
+
+    .olive-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 11px;
+      min-width: 116px;
+      min-height: 32px;
+      padding: 7px 14px;
+      background: var(--olive);
+      color: white;
+      border-radius: 4px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 18px;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* Itinerario */
+    .timeline {
+      width: 100%;
+      max-width: 325px;
+      margin: 28px auto 0;
+      position: relative;
+      padding-top: 5px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: var(--line);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      position: relative;
+      min-height: 56px;
+      display: grid;
+      grid-template-columns: 1fr 48px 1fr;
+      align-items: center;
+      text-align: center;
+    }
+
+    .timeline-copy {
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: .55px;
+      font-weight: 700;
+      line-height: 1.16;
+      color: #4d4d4d;
+    }
+
+    .timeline-copy .hour {
+      display: block;
+      color: #787f63;
+      font-size: 10px;
+      margin-bottom: 3px;
+    }
+
+    .timeline-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      background: var(--paper);
+      z-index: 2;
+    }
+
+    .timeline-icon svg {
+      width: 36px;
+      height: 36px;
+      stroke: var(--olive);
+      fill: none;
+      stroke-width: 2.05;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: .82;
+    }
+
+    .left-text { text-align: right; padding-right: 6px; }
+    .right-text { text-align: left; padding-left: 6px; }
+    .empty { visibility: hidden; }
+
+    /* Vestimenta */
+    .dress .spaced-title {
+      margin-bottom: 12px;
+    }
+
+    .dress-type {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .dress-icon-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 16px;
+    }
+
+    .dress-icon-wrap svg {
+      width: 70px;
+      height: 70px;
+      fill: #171717;
+      stroke: #171717;
+      stroke-width: .8;
+    }
+
+    .dress-copy {
+      max-width: 310px;
+      margin: 0 auto;
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    /* Regalos */
+    .gift-card,
+    .notes-card {
+      width: 100%;
+      max-width: 342px;
+      margin: 0 auto;
+      padding: 38px 24px;
+      border: 1px solid rgba(124, 133, 100, .34);
+      background: #fffefa;
+      text-align: center;
+    }
+
+    .gift-main-icon,
+    .rsvp-main-icon {
+      width: 54px;
+      height: 54px;
+      display: block;
+      margin: 0 auto 18px;
+      stroke: var(--olive);
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .gift-card p,
+    .rsvp-card p,
+    .notes-card p {
+      max-width: 295px;
+      margin: 13px auto 0;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.28;
+      text-align: center;
+    }
+
+    .gift-envelope-box {
+      margin: 28px auto 0;
+      width: 215px;
+      padding: 18px 18px 16px;
+      background: rgba(124, 133, 100, .10);
+      border: 1px solid rgba(124, 133, 100, .30);
+      text-align: center;
+    }
+
+    .gift-option {
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2.2px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.55;
+      color: var(--olive-dark);
+      text-align: center;
+    }
+
+    .gift-envelope-icon {
+      width: 38px;
+      height: 28px;
+      display: block;
+      margin: 10px auto 0;
+      stroke: var(--olive);
+      fill: none;
+      stroke-width: 2.2;
+    }
+
+    /* RSVP */
+    .rsvp-card {
+      max-width: 342px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .rsvp-main-icon {
+      stroke: white;
+      margin-bottom: 17px;
+    }
+
+    .rsvp-buttons {
+      margin: 22px auto 0;
+      display: grid;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .whatsapp-btn {
+      width: 205px;
+      min-height: 42px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,.78);
+      border-radius: 7px;
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      background: rgba(255,255,255,.07);
+      text-align: center;
+    }
+
+    .wa-icon {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      flex: 0 0 auto;
+    }
+
+    /* Notas */
+    .notes-card {
+      border-top: 1px solid rgba(124, 133, 100, .36);
+      border-bottom: 1px solid rgba(124, 133, 100, .36);
+    }
+
+    .note-block {
+      text-align: center;
+    }
+
+    .note-block p + p {
+      margin-top: 9px;
+    }
+
+    .note-separator {
+      width: 52px;
+      height: 1px;
+      margin: 32px auto;
+      background: rgba(124, 133, 100, .55);
+    }
+
+    .thanks-title {
+      font-family: "Montserrat", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,.90);
+      text-align: center;
+    }
+
+    .thanks-script {
+      margin-top: 11px;
+      font-size: 42px;
+      line-height: 1;
+      color: rgba(255,255,255,.94);
+      text-align: center;
+    }
+
+    .verse p {
+      max-width: 324px;
+      margin: 0 auto;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .verse strong {
+      display: block;
+      margin-top: 4px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 11px;
+      letter-spacing: .7px;
+      text-align: center;
+    }
+
+    /* Corrección de contraste por fondos y tarjetas */
+    .gift-card,
+    .notes-card {
+      color: var(--ink);
+    }
+
+    .gift-card .spaced-title,
+    .gift-card p,
+    .notes-card .spaced-title,
+    .notes-card p {
+      color: var(--ink);
+    }
+
+    .gift-card .gift-main-icon,
+    .gift-card .gift-envelope-icon {
+      stroke: var(--olive);
+    }
+
+    .framed-white .rsvp-card,
+    .framed-white .rsvp-card .spaced-title,
+    .framed-white .rsvp-card p {
+      color: var(--ink);
+    }
+
+    .framed-white .rsvp-main-icon {
+      stroke: var(--olive);
+    }
+
+    .framed-white .whatsapp-btn {
+      background: var(--olive);
+      border-color: var(--olive);
+      color: var(--white);
+    }
+
+    .olive .timeline::before {
+      background: rgba(255, 255, 255, .46);
+    }
+
+    .olive .timeline-copy {
+      color: var(--white);
+    }
+
+    .olive .timeline-copy .hour {
+      color: rgba(255, 255, 255, .82);
+    }
+
+    .olive .timeline-icon {
+      background: var(--olive);
+    }
+
+    .olive .timeline-icon svg {
+      stroke: var(--white);
+      opacity: .92;
+    }
+
+    .olive .gift-card .spaced-title,
+    .olive .gift-card p,
+    .olive .notes-card .spaced-title,
+    .olive .notes-card p {
+      color: var(--ink);
+    }
+
+    /* Animaciones */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .85s ease, transform .85s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 370px) {
+      .section-pad,
+      .framed-white .frame-content {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .cover-names {
+        font-size: 38px;
+      }
+
+      .big-names {
+        font-size: 64px;
+      }
+
+      .countdown strong {
+        font-size: 36px;
+      }
+
+      .copy,
+      .gift-card p,
+      .rsvp-card p,
+      .notes-card p,
+      .dress-copy,
+      .verse p {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="invitation">
+    <!-- 1. PORTADA -->
+    <section class="cover cream" id="inicio">
+      <div class="frame-top"></div>
+
+      <div class="cover-content reveal">
+        <div class="cover-title spaced-title small">Nuestra boda</div>
+        <h1 class="cover-names script">Cesar <span class="amp-inline">&amp;</span> Nohelia</h1>
+        <div class="cover-date">04 - JULIO - 2026</div>
+
+        <button class="envelope-button" id="openEnvelope" type="button" aria-label="Abrir invitación">
+          <span class="envelope">
+            <span class="envelope-back"></span>
+            <span class="envelope-letter"></span>
+            <span class="envelope-flap"></span>
+            <span class="envelope-front"></span>
+            <span class="seal"></span>
+          </span>
+        </button>
+
+        <div class="click-copy">Click para abrir la<br />invitación</div>
+
+        <div class="guest-name" id="guestName">Invitado especial</div>
+
+        <div class="reserved">
+          <div class="label">Hemos reservado</div>
+          <div class="number" id="guestSeats">2</div>
+          <div class="label" id="guestSeatsLabel">Lugares en su honor</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. NOMBRES GRANDES -->
+    <section class="hero-names" id="nombres">
+      <div class="hero-names-content reveal">
+        <h2 class="big-names script">Cesar<span class="amp">&amp;</span>Nohelia</h2>
+        <div class="hero-date">04.07.2026</div>
+      </div>
+    </section>
+
+    <!-- 3. INICIALES -->
+    <section class="framed-white">
+      <div class="frame-top"></div>
+      <div class="frame-content reveal">
+        <div class="monogram-letters">C<span class="divider"></span>N</div>
+      </div>
+      <div class="frame-bottom"></div>
+    </section>
+
+    <!-- 4. MENSAJE, FECHA Y CONTADOR -->
+    <section class="section-pad olive" id="historia">
+      <div class="content reveal">
+        <p class="copy story-copy">
+          Nuestra historia continúa… por ello, con el amor que nos une y la bendición de Dios, uniremos nuestras vidas y queremos que seas parte de este nuevo capítulo.
+        </p>
+
+        <div class="date-row">
+          <div class="side">Sábado</div>
+          <div>
+            <div class="month">Julio</div>
+            <div class="day script">04</div>
+          </div>
+          <div class="side">2026</div>
+        </div>
+
+        <div class="countdown-title spaced-title small">Faltan</div>
+        <div class="countdown" aria-live="polite">
+          <div><strong id="days">00</strong><span>Días</span></div>
+          <div><strong id="hours">00</strong><span>Horas</span></div>
+          <div><strong id="minutes">00</strong><span>Min</span></div>
+          <div><strong id="seconds">00</strong><span>Seg</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Foto 1 -->
+    <div class="photo-placeholder">Espacio para fotografía<br />de los novios</div>
+
+    <!-- 5. UBICACIONES -->
+    <section class="framed-white" id="ubicacion">
+      <div class="frame-top"></div>
+      <div class="frame-content reveal">
+        <div class="location-list">
+          <div class="location-item">
+            <svg class="icon-svg" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="25" cy="33" r="13"></circle>
+              <circle cx="39" cy="33" r="13"></circle>
+              <path d="M31 19l4-8 4 8"></path>
+              <path d="M28 15h14"></path>
+            </svg>
+            <div class="location-time">Hora pendiente</div>
+            <div class="location-name">Ceremonia civil</div>
+            <div class="location-place">Villa Madrid</div>
+            <div class="location-city">Mismo lugar</div>
+            <a class="olive-btn" href="https://maps.google.com/?q=Villa%20Madrid" target="_blank" rel="noopener">Ver ubicación</a>
+          </div>
+
+          <div class="location-item">
+            <svg class="icon-svg" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M14 26h36v24H14z"></path>
+              <path d="M20 26v-9h24v9"></path>
+              <path d="M20 34h24"></path>
+              <path d="M20 42h24"></path>
+              <path d="M27 17c0-5 10-5 10 0"></path>
+            </svg>
+            <div class="location-time">Hora pendiente</div>
+            <div class="location-name">Recepción</div>
+            <div class="location-place">Villa Madrid</div>
+            <div class="location-city">Mismo lugar</div>
+            <a class="olive-btn" href="https://maps.google.com/?q=Villa%20Madrid" target="_blank" rel="noopener">Ver ubicación</a>
+          </div>
+        </div>
+      </div>
+      <div class="frame-bottom"></div>
+    </section>
+
+    <!-- 6. ITINERARIO -->
+    <section class="section-pad olive" id="itinerario">
+      <div class="content reveal">
+        <h2 class="spaced-title">Itinerario de actividades</h2>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-copy empty">.</div>
+            <div class="timeline-icon">
+              <svg viewBox="0 0 64 64"><circle cx="25" cy="34" r="13"></circle><circle cx="39" cy="34" r="13"></circle><path d="M31 20l4-8 4 8"></path></svg>
+            </div>
+            <div class="timeline-copy right-text"><span class="hour">Hora pendiente</span>Ceremonia<br />civil</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-copy left-text"><span class="hour">Hora pendiente</span>Cóctel de<br />bienvenida</div>
+            <div class="timeline-icon">
+              <svg viewBox="0 0 64 64"><path d="M23 14l8 20"></path><path d="M41 14l-8 20"></path><path d="M24 16h16"></path><path d="M31 34v16"></path><path d="M23 50h16"></path></svg>
+            </div>
+            <div class="timeline-copy empty">.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-copy empty">.</div>
+            <div class="timeline-icon">
+              <svg viewBox="0 0 64 64"><path d="M18 48V24"></path><path d="M46 48V24"></path><path d="M18 24c9 9 19 9 28 0"></path><path d="M20 48h24"></path><path d="M24 20h16"></path></svg>
+            </div>
+            <div class="timeline-copy right-text"><span class="hour">Hora pendiente</span>Ingreso de<br />los esposos</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-copy left-text"><span class="hour">Hora pendiente</span>Primer baile<br />y brindis</div>
+            <div class="timeline-icon">
+              <svg viewBox="0 0 64 64"><path d="M33 14c4 8 8 15 12 24"></path><path d="M31 14c-4 9-8 17-13 25"></path><path d="M21 39h25"></path><path d="M26 39l-5 12"></path><path d="M40 39l5 12"></path><path d="M26 20h12"></path></svg>
+            </div>
+            <div class="timeline-copy empty">.</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-copy empty">.</div>
+            <div class="timeline-icon">
+              <svg viewBox="0 0 64 64"><path d="M15 28h34"></path><path d="M18 28v18"></path><path d="M46 28v18"></path><path d="M22 46h20"></path><path d="M22 20v8"></path><path d="M30 20v8"></path><path d="M38 20v8"></path></svg>
+            </div>
+            <div class="timeline-copy right-text"><span class="hour">Hora pendiente</span>Cena</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-copy left-text"><span class="hour">Hora pendiente</span>Fiesta</div>
+            <div class="timeline-icon">
+              <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="16"></circle><path d="M32 16v32M16 32h32M21 21l22 22M43 21L21 43"></path></svg>
+            </div>
+            <div class="timeline-copy empty">.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Foto 2 -->
+    <div class="photo-placeholder">Espacio para fotografía<br />de los novios</div>
+
+    <!-- 7. VESTIMENTA -->
+    <section class="framed-white" id="vestimenta">
+      <div class="frame-top"></div>
+      <div class="frame-content reveal dress">
+        <h2 class="spaced-title">Código de vestimenta</h2>
+        <div class="dress-type">Formal</div>
+        <div class="dress-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 90 90">
+            <path d="M28 15l-9 11 8 7-6 42h24l-6-42 8-7-9-11-5 8z"></path>
+            <path d="M59 15c-6 15-11 33-15 60h31c-4-27-9-45-15-60z"></path>
+            <path d="M54 15h12l-6 9z" fill="#fff" stroke="#fff"></path>
+          </svg>
+        </div>
+        <p class="dress-copy">Con mucho cariño, pedimos evitar prendas en color blanco y tonos similares.</p>
+      </div>
+      <div class="frame-bottom"></div>
+    </section>
+
+    <!-- 8. REGALOS -->
+    <section class="section-pad olive" id="regalos">
+      <div class="gift-card reveal">
+        <svg class="gift-main-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M12 28h40v28H12z"></path>
+          <path d="M8 20h48v8H8z"></path>
+          <path d="M32 20v36"></path>
+          <path d="M32 20c-12-13-21 1-12 0 5 0 9 0 12 0z"></path>
+          <path d="M32 20c12-13 21 1 12 0-5 0-9 0-12 0z"></path>
+        </svg>
+
+        <h2 class="spaced-title">Sugerencia de regalos</h2>
+        <p>El mejor regalo es tu presencia, pero si deseas tener un detalle con nosotros, les dejamos esta opción:</p>
+
+        <div class="gift-envelope-box">
+          <div class="gift-option">Lluvia de sobres</div>
+          <svg class="gift-envelope-icon" viewBox="0 0 64 42" aria-hidden="true">
+            <path d="M4 4h56v34H4z"></path>
+            <path d="M4 4l28 20L60 4"></path>
+            <path d="M4 38l19-16"></path>
+            <path d="M60 38L41 22"></path>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. CONFIRMAR ASISTENCIA -->
+    <section class="framed-white" id="confirmar">
+      <div class="frame-top"></div>
+      <div class="frame-content reveal rsvp-card">
+        <svg class="rsvp-main-icon" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M16 14v8"></path>
+          <path d="M48 14v8"></path>
+          <path d="M12 20h40v36H12z"></path>
+          <path d="M12 30h40"></path>
+          <path d="M32 48s-9-5-9-12c0-6 7-7 9-1 2-6 9-5 9 1 0 7-9 12-9 12z"></path>
+        </svg>
+
+        <h2 class="spaced-title">Confirmar asistencia</h2>
+        <p>Agradecemos que confirmes tu asistencia antes del 27 de junio</p>
+
+        <div class="rsvp-buttons">
+          <a class="whatsapp-btn" id="whatsappNovia" href="#" target="_blank" rel="noopener">
+            <svg class="wa-icon" viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M16.01 3.2A12.74 12.74 0 0 0 5.18 22.7L3.7 28.2l5.65-1.45A12.76 12.76 0 1 0 16.01 3.2Zm0 23.15c-2.05 0-3.95-.6-5.56-1.64l-.4-.25-3.35.86.9-3.25-.27-.42A10.38 10.38 0 1 1 16 26.35Zm5.7-7.76c-.31-.16-1.85-.91-2.14-1.02-.29-.11-.5-.16-.71.16-.21.31-.82 1.02-1 1.23-.18.21-.37.23-.68.08-.31-.16-1.32-.49-2.51-1.55-.93-.83-1.56-1.85-1.74-2.16-.18-.31-.02-.48.14-.64.14-.14.31-.37.47-.55.16-.18.21-.31.31-.52.1-.21.05-.39-.03-.55-.08-.16-.71-1.71-.98-2.34-.26-.62-.52-.53-.71-.54h-.61c-.21 0-.55.08-.84.39-.29.31-1.1 1.08-1.1 2.63s1.13 3.05 1.29 3.26c.16.21 2.23 3.4 5.4 4.77.75.32 1.34.52 1.8.66.76.24 1.45.2 1.99.12.61-.09 1.85-.76 2.11-1.49.26-.73.26-1.36.18-1.49-.08-.13-.29-.21-.6-.37Z"/>
+            </svg>
+            Contacto novia
+          </a>
+        </div>
+      </div>
+      <div class="frame-bottom"></div>
+    </section>
+
+    <!-- 10. NOTAS -->
+    <section class="section-pad olive">
+      <div class="notes-card reveal">
+        <div class="note-block">
+          <h3 class="spaced-title">Sin niños</h3>
+          <p>Adoramos a tus pequeños, sin embargo este evento está destinado solo para adultos.</p>
+          <p>¡Esperamos tu comprensión!</p>
+        </div>
+
+        <div class="note-separator"></div>
+
+        <div class="note-block">
+          <h3 class="spaced-title">Nota especial</h3>
+          <p>Agradecemos tu puntualidad, para que no te pierdas ningún momento especial.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. GRACIAS -->
+    <section class="framed-white compact" id="gracias">
+      <div class="frame-top"></div>
+      <div class="frame-content reveal">
+        <div class="thanks-title" style="color: var(--olive-dark);">Esperamos contar con su presencia</div>
+        <div class="thanks-script script" style="color: var(--olive-dark);">Muchas Gracias!</div>
+      </div>
+      <div class="frame-bottom"></div>
+    </section>
+
+    <!-- 12. VERSÍCULO -->
+    <section class="section-pad olive verse">
+      <div class="content reveal">
+        <p>“El amor nunca se da por vencido, jamás pierde la fe, siempre tiene esperanzas y se mantiene firme en toda circunstancia”.</p>
+        <strong>1 Corintios 13:7</strong>
+      </div>
+    </section>
+
+    <div class="photo-placeholder final-photo">Fotografía final<br />de los novios</div>
+  </main>
+
+  <script>
+    const WEDDING_DATE = "2026-07-04T16:30:00-06:00";
+
+    // =====================================================
+    // CONFIGURACIÓN APPS SCRIPT + GOOGLE SHEETS
+    // Tu Apps Script debe responder JSON con:
+    // {
+    //   ok: true,
+    //   guest: {
+    //     slug, invitado, espacios, tipo, telefono, activo
+    //   }
+    // }
+    //
+    // La hoja debe tener estas columnas:
+    // slug | invitado | espacios | tipo | telefono | activo
+    // =====================================================
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx6oTnNAM0k5Xf6Oy4WXrzH4-r3mpYzF-cbTY5BAtTytac-i-mjN1hbsOH5S26YD6n_/exec";
+
+    const WHATSAPP_NOVIA_DEFAULT = "50499999999";
+
+    const DEFAULT_GUEST = {
+      slug: "invitado",
+      invitado: "Invitado especial",
+      espacios: "2",
+      tipo: "persona",
+      telefono: WHATSAPP_NOVIA_DEFAULT,
+      activo: "si"
+    };
+
+    function getSlugFromUrl() {
+      const path = window.location.pathname.replace(/^\/+|\/+$/g, "");
+      return path || "invitado";
+    }
+
+    function normalizeText(value) {
+      return String(value || "").trim();
+    }
+
+    function isFamilyGuest(guest) {
+      const type = normalizeText(guest.tipo).toLowerCase();
+      const name = normalizeText(guest.invitado).toLowerCase();
+      return type === "familia" || name.startsWith("familia ");
+    }
+
+    function buildWhatsAppMessage(guest) {
+      const name = normalizeText(guest.invitado) || DEFAULT_GUEST.invitado;
+      const seats = Number(guest.espacios || DEFAULT_GUEST.espacios);
+      const family = isFamilyGuest(guest);
+      const verb = family ? "somos" : "soy";
+      const assistance = seats === 1 ? "mi lugar reservado" : `nuestros ${seats} lugares reservados`;
+
+      return encodeURIComponent(
+        `Hola, ${verb} ${name}. Confirmo asistencia a la boda de Cesar & Nohelia el 04 de julio de 2026 para ${assistance}.`
+      );
+    }
+
+    function renderGuest(guest) {
+      const guestName = document.getElementById("guestName");
+      const guestSeats = document.getElementById("guestSeats");
+      const guestSeatsLabel = document.getElementById("guestSeatsLabel");
+      const noviaBtn = document.getElementById("whatsappNovia");
+
+      const name = normalizeText(guest.invitado) || DEFAULT_GUEST.invitado;
+      const seats = Number(guest.espacios || DEFAULT_GUEST.espacios);
+      const phone = normalizeText(guest.telefono) || WHATSAPP_NOVIA_DEFAULT;
+
+      if (guestName) guestName.textContent = name;
+      if (guestSeats) guestSeats.textContent = seats;
+      if (guestSeatsLabel) guestSeatsLabel.textContent = seats === 1 ? "Lugar en su honor" : "Lugares en su honor";
+      if (noviaBtn) noviaBtn.href = `https://wa.me/${phone}?text=${buildWhatsAppMessage(guest)}`;
+    }
+
+    async function loadGuestFromAppsScript() {
+      const slug = getSlugFromUrl();
+
+      if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PEGA_AQUI")) {
+        renderGuest(DEFAULT_GUEST);
+        return;
+      }
+
+      try {
+        const url = `${APPS_SCRIPT_URL}?slug=${encodeURIComponent(slug)}`;
+        const response = await fetch(url, { cache: "no-store" });
+        const data = await response.json();
+
+        if (!data.ok || !data.guest) {
+          renderGuest(DEFAULT_GUEST);
+          return;
+        }
+
+        renderGuest(data.guest);
+      } catch (error) {
+        console.warn("Error cargando invitado desde Apps Script:", error);
+        renderGuest(DEFAULT_GUEST);
+      }
+    }
+
+    loadGuestFromAppsScript();
+
+    const envelopeButton = document.getElementById("openEnvelope");
+    if (envelopeButton) {
+      envelopeButton.addEventListener("click", () => {
+        if (envelopeButton.classList.contains("open")) return;
+        envelopeButton.classList.add("open");
+        setTimeout(() => {
+          document.getElementById("nombres")?.scrollIntoView({ behavior: "smooth" });
+        }, 1150);
+      });
+    }
+
+    function updateCountdown() {
+      const target = new Date(WEDDING_DATE).getTime();
+      const now = Date.now();
+      const distance = Math.max(target - now, 0);
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      const setText = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = String(value).padStart(2, "0");
+      };
+
+      setText("days", days);
+      setText("hours", hours);
+      setText("minutes", minutes);
+      setText("seconds", seconds);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    const revealItems = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("show");
+        });
+      }, { threshold: 0.15 });
+
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add("show"));
+    }
+  </script>
+</body>
+</html>
