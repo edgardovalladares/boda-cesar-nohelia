@@ -1085,6 +1085,8 @@
 
 <body>
   <main class="invitation">
+    <audio id="weddingAudio" src="audio.mp3" preload="auto" loop></audio>
+
     <!-- 1. PORTADA -->
     <section class="cover cream" id="inicio">
       <div class="frame-top"></div>
@@ -1174,9 +1176,9 @@
             </svg>
             <div class="location-time">Hora pendiente</div>
             <div class="location-name">Ceremonia civil</div>
-            <div class="location-place">Villa Madrid</div>
+            <div class="location-place">Villa Dolores</div>
             <div class="location-city">Juticalpa, Olancho</div>
-            <a class="olive-btn" href="https://share.google/NWuqMbvp2WFK77XSJ" target="_blank" rel="noopener">Ver
+            <a class="olive-btn" href="https://share.google/XEbuSctc3LvfYtRM2" target="_blank" rel="noopener">Ver
               ubicación</a>
           </div>
 
@@ -1190,9 +1192,9 @@
             </svg>
             <div class="location-time">Hora pendiente</div>
             <div class="location-name">Recepción</div>
-            <div class="location-place">Villa Madrid</div>
+            <div class="location-place">Villa Dolores</div>
             <div class="location-city">Juticalpa, Olancho</div>
-            <a class="olive-btn" href="https://share.google/NWuqMbvp2WFK77XSJ" target="_blank" rel="noopener">Ver
+            <a class="olive-btn" href="https://share.google/XEbuSctc3LvfYtRM2" target="_blank" rel="noopener">Ver
               ubicación</a>
           </div>
         </div>
@@ -1509,14 +1511,85 @@
       }
     }
 
+    function setupWeddingAudio() {
+      const audio = document.getElementById("weddingAudio");
+      const endSection = document.getElementById("gracias");
+      if (!audio) return;
+
+      audio.volume = 0;
+      audio.loop = true;
+      let audioStarted = false;
+      let fadeInterval = null;
+      let fadedOut = false;
+
+      function fadeAudio(targetVolume, duration = 1800, stopWhenDone = false) {
+        clearInterval(fadeInterval);
+
+        const steps = 30;
+        const startVolume = audio.volume;
+        const change = targetVolume - startVolume;
+        let currentStep = 0;
+
+        fadeInterval = setInterval(() => {
+          currentStep += 1;
+          const nextVolume = startVolume + (change * currentStep / steps);
+          audio.volume = Math.max(0, Math.min(1, nextVolume));
+
+          if (currentStep >= steps) {
+            clearInterval(fadeInterval);
+            audio.volume = Math.max(0, Math.min(1, targetVolume));
+
+            if (stopWhenDone) {
+              audio.pause();
+            }
+          }
+        }, duration / steps);
+      }
+
+      async function playAudio() {
+        if (audioStarted) return;
+        audioStarted = true;
+
+        try {
+          await audio.play();
+          fadeAudio(0.82, 1600);
+        } catch (error) {
+          console.warn("El navegador bloqueó la reproducción automática del audio:", error);
+        }
+      }
+
+      function setupFinalFadeOut() {
+        if (!endSection || !("IntersectionObserver" in window)) return;
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && audioStarted && !fadedOut) {
+              fadedOut = true;
+              audio.loop = false;
+              fadeAudio(0, 4200, true);
+              observer.disconnect();
+            }
+          });
+        }, { threshold: 0.65 });
+
+        observer.observe(endSection);
+      }
+
+      setupFinalFadeOut();
+
+      return { playAudio };
+    }
+
     function setupEnvelopeAnimation() {
       const envelopeButton = document.getElementById("openEnvelope");
+      const weddingAudio = setupWeddingAudio();
       if (!envelopeButton) return;
 
       envelopeButton.addEventListener("click", () => {
         if (envelopeButton.classList.contains("open")) return;
 
         envelopeButton.classList.add("open");
+        weddingAudio?.playAudio();
 
         setTimeout(() => {
           document.getElementById("nombres")?.scrollIntoView({ behavior: "smooth" });
